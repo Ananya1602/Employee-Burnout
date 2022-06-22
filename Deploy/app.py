@@ -2,36 +2,41 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 
-app = Flask(__name__)
+app=Flask(__name__,template_folder='templates')
 model = pickle.load(open("cat_model_pickle.pkl", 'rb'))
 
 @app.route('/')
-def home_page():
-    return render_template('predict.html')
+def home():
+    return render_template('pred.html')
 
-@app.route('/predict',methods=['POST'])
-def predict_page():
+@app.route('/predict',methods=['POST'])   
+def predict():
     '''
     For rendering results on HTML GUI
     '''
-    int_features = [int(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    prediction = model.predict(final_features)
+    employee_id = request.form("Employee ID")
+    date_joining = request.form["Date of Joining"]
+    gender =request.form["Gender"]
+    company=request.form["Company Type"]
+    wfh =request.form["WFH Setup Available"]	
+    designation=request.form["Designation"]	
+    hours =request.form["Resource Allocation"]
+    fatigue =request.form["Mental Fatigue Score"]
 
-    output = round(prediction[0], 2)
 
-    return render_template('predict.html', prediction_text='Employee Burnout Score is {}'.format(output))
+   ### id = 
+  ####  list_features = [ x for x in request.form.values()]
+ ##   final_features = [np.list(int_features)]
+  #  prediction = model.predict(final_features) 
+    
+  #  output = round(prediction[0], 2)
 
-@app.route('/results',methods=['POST'])
-def results():
-    '''
-    For direct API calls trought request
-    '''
-    data = request.get_json(force=True)
-    prediction = model.predict([np.array(list(data.values()))])
+  #  return render_template('pred.html', prediction_text='Employee burnout: {}'.format(output))  ###
 
-    output = prediction[0]
-    return jsonify(output)
+    prediction = model.predict([employee_id,date_joining, gender,company, wfh, designation,hours,fatigue])
+
+    output=round(prediction[0],2)
+    return render_template('pred.html',prediction_text='Employee burnout: {}'.format(output))
 
 if __name__ == "__main__":
     app.run(debug=True)
