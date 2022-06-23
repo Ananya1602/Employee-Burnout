@@ -18,15 +18,15 @@
   
      <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="Employee_ID" placeholder="Experience" required="required" />
-      <input type="date" name="Date_of_joining" placeholderTest ="Score" required="required" />
+    	<input type="text" name="Employee ID" placeholder="Experience" required="required" />
+      <input type="date" name="Date of Joining" placeholderTest ="Score" required="required" />
 		  <input type="text" name="Gender" placeholder="Interview Score" required="required" />
-      <input type="text" name="Company_type" placeholder="Experience" required="required" />
-      <input type="text" name="WFH_Setup_Available" placeholder="Test Score" required="required" />
+      <input type="text" name="Company Type" placeholder="Experience" required="required" />
+      <input type="text" name="WFH Setup Available" placeholder="Test Score" required="required" />
 		  <input type="number" name="Designation" placeholder="Interview Score" required="required" />
-      <input type="number" name="Resource_Allocation" placeholder="Experience" required="required" />
-      <input type="number" name="Mental_Fatigue_Score" placeholder="Test Score" required="required" />
-		  
+      <input type="number" name="Resource Allocation" placeholder="Experience" required="required" />
+      <input type="text" name="Mental Fatigue Score" placeholder="0.00" required="required" />
+		
         <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
     </form>
 
